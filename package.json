@@ -1,0 +1,19 @@
+{
+  "name": "seneca-entity-access",
+  "version": "0.0.1",
+  "description": "seneca integration for entity-access",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha *.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianRossouw/seneca-entity-access.git"
+  },
+  "author": "Adrian Rossouw",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AdrianRossouw/seneca-entity-access/issues"
+  },
+  "homepage": "https://github.com/AdrianRossouw/seneca-entity-access#readme"
+}
