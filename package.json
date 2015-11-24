@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/AdrianRossouw/seneca-entity-access/issues"
   },
-  "homepage": "https://github.com/AdrianRossouw/seneca-entity-access#readme"
+  "homepage": "https://github.com/AdrianRossouw/seneca-entity-access#readme",
+  "dependencies": {
+    "knex": "^0.9.0",
+    "lodash": "^3.10.1",
+    "patrun": "^0.5.0"
+  }
 }
