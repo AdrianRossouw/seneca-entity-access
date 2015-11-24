@@ -1,6 +1,6 @@
 {
   "name": "seneca-entity-access",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "seneca integration for entity-access",
   "main": "index.js",
   "scripts": {
