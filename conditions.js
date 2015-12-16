@@ -47,7 +47,6 @@ module.exports = function(entity, key, perms) {
       return m;
     }
 
-
 		function addRequired(upTo) {
 			if (upTo === 0) { return []; }
 
