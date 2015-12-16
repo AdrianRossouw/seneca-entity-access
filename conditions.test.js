@@ -1,18 +1,8 @@
 var perms = require('./test.fixture');
 var conditions = require('./conditions');
-var toString = require('entity-access/logic/string');
 var assert = require('assert');
 
-var opts = {
-	entity: 'blog',
-	access: 'read',
-	key: 'id',
-	keychain: [
-		'user=test-user'
-	]
-};
-
-var _result = toString(opts, conditions('blog', 'id', perms.accessControls))();
+var _result = conditions('blog', 'id', perms.accessControls)();
 
 describe('seneca-perm BC: acl conditions', function() {
 
