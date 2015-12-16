@@ -32,16 +32,20 @@ module.exports = function(entity, key, perms) {
 	// returns a subselect to match the query
 	return function conditions(xpr) {
 
-    var cnds = _.reduce(locks, handleSufficient,
-      [xpr.and.apply(xpr, addRequired())]);
 
-    return xpr.or.apply(xpr, cnds);
+    var cnds = _.reduce(locks, handleSufficient, []);
+    cnds.push(wrapFn('xpr.and', addRequired()));
+
+    return "function conditions(xpr) { \n\t"
+      + wrapFn('xpr.or', cnds, "\n\t\t", "\n\t\t", "\n\t") + ";\n}\n"
 
     function handleSufficient(m, v, k) {
+      var l = "'" + v.lock + "'";
+
       if (v.control === 'sufficient') {
         var cnds = addRequired(k);
-        cnds.push(v.reject ? xpr.not(v.lock) : v.lock);
-        m.push(xpr.and.apply(xpr, cnds));
+        cnds.push(v.reject ? wrapFn('xpr.not', [l]) : l);
+        m.push(wrapFn('xpr.and', cnds));
       }
 
       return m;
@@ -56,9 +60,21 @@ module.exports = function(entity, key, perms) {
 				.value();
 
       return _.map(conditions, function (v) {
-        return v.reject ? xpr.not(v.lock) : v.lock;
+        var l = "'" + v.lock + "'";
+        return v.reject ? wrapFn('xpr.not', [l]) : l;
 			});
 		}
 
   };
 };
+
+function wrapFn(fn, args, openStr, joinStr, endStr) {
+  openStr = openStr || '';
+  endStr = endStr || ''
+  args = args || [];
+  if ((fn !== 'xpr.not') && (args.length === 1)) {
+    return args[0];
+  } else {
+    return fn + '(' + openStr + args.join(joinStr || ', ') + endStr + ')';
+  }
+}

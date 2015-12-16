@@ -17,22 +17,22 @@ var _result = toString(opts, conditions('blog', 'id', perms.accessControls))();
 describe('seneca-perm BC: acl conditions', function() {
 
 	it('first sufficient lock', function() {
-		assert.ok(~_result.indexOf('(draft)'));
+		assert.ok(~_result.indexOf("'draft'"));
 	});
 
 	it('supports reject locks', function() {
-		assert.ok(~_result.indexOf('(not manual_blacklist)'));
+		assert.ok(~_result.indexOf("xpr.not('manual_blacklist')"));
 	});
 
 	it('second sufficient lock', function() {
-		assert.ok(~_result.indexOf('(role and (not manual_blacklist) and section)'));
+		assert.ok(~_result.indexOf("xpr.and('role', xpr.not('manual_blacklist'), 'section')"));
 	});
 
 	it('directly following third sufficient lock', function() {
-		assert.ok(~_result.indexOf('(role and (not manual_blacklist) and investigation_blogs)'));
+		assert.ok(~_result.indexOf("xpr.and('role', xpr.not('manual_blacklist'), 'investigation_blogs')"));
 	});
 
 	it('all required/requisite locks', function() {
-		assert.ok(~_result.indexOf('(role and (not manual_blacklist) and restricted_if_assigned)'));
+		assert.ok(~_result.indexOf("xpr.and('role', xpr.not('manual_blacklist'), 'restricted_if_assigned')"));
 	});
 });
